@@ -2,7 +2,7 @@
 import express from 'express';
 import users from './routes/users.js';
 import auth from './routes/auth.js';
-import contact from './routes/contact.js';
+import contact from './routes/contacts.js';
 import connectdb from './config/db.js';
 const app = express();
 

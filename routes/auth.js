@@ -7,14 +7,23 @@ import bcrypt from 'bcryptjs';
 import { check, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
+import authMid from '../middleware/auth.js';
 const router = express.Router();
 
 // @route  GET api/auth
 // @desc   Get logged in user
 // @access Private
-router.get('/', (req, res) => {
-  res.send({ msg: 'Get logged in user' });
-  console.log(`made it to auth`);
+router.get('*', authMid);
+router.get('/', async (req, res) => {
+  // res.send({ msg: 'Get logged in user' });
+  // console.log(`made it to auth`);
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json({ user });
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 // @route  POST api/auth
@@ -49,7 +58,7 @@ router.post(
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
-          console.log(`this is the token: ${JSON.stringify({ token })}`);
+          // console.log(`this is the token: ${JSON.stringify({ token })}`);
           res.json({ token });
         }
       );

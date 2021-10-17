@@ -5,8 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon --verbose --watch . server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon --verbose --watch ./ -L server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "clientinstall":"npm install --prefix client",
+    "dev":"concurrently \"npm run serer\"  \"npm run client\""
   },
   "type": "module",
   "keywords": [],
