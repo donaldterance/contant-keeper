@@ -3,7 +3,15 @@ import express from 'express';
 import users from './routes/users.js';
 import auth from './routes/auth.js';
 import contact from './routes/contact.js';
+import connectdb from './config/db.js';
 const app = express();
+
+//Connect Database
+connectdb();
+
+//init middleware
+app.use(express.json({ extended: false }));
+
 //process.env.PORT is for production
 const PORT = process.env.PORT || 5001;
 //define routes
