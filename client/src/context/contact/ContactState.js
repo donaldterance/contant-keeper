@@ -40,6 +40,9 @@ const ContactState = (props) => {
   };
 
   //delete contact
+  const deleteContact = (id) => {
+    dispatch({ type: reducerTypes.DELETE_CONTACT, payload: id });
+  };
 
   //set current contact
 
@@ -53,7 +56,9 @@ const ContactState = (props) => {
 
   return (
     // anything we want to access from other components, including state and actions,  goes in value
-    <ContactContext.Provider value={{ contacts: state.contacts }}>
+    <ContactContext.Provider
+      value={{ contacts: state.contacts, addContact, deleteContact }}
+    >
       {props.children}
     </ContactContext.Provider>
   );

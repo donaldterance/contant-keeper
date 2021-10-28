@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react';
-import ContactContext from '../context/contact/ContactContext';
+import ContactContext from '../../context/contact/ContactContext';
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
 
@@ -44,7 +44,7 @@ const ContactForm = () => {
         onChange={onChange}
       />
       <input
-        type='email'
+        type='text'
         placeholder='Phone'
         name='phone'
         value={phone}
@@ -56,6 +56,7 @@ const ContactForm = () => {
         name='type'
         value='personal'
         checked={type === 'personal'}
+        onChange={onChange}
       />
       Personal{'    '}
       <input
@@ -63,6 +64,7 @@ const ContactForm = () => {
         name='type'
         value='professional'
         checked={type === 'professional'}
+        onChange={onChange}
       />
       Professional
       <div>
