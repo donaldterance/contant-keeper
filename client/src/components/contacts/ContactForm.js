@@ -9,7 +9,15 @@ const ContactForm = () => {
     clearCurrentContact,
     updateCurrentContact,
   } = contactContext;
-
+  //instead of having individual field with their own state,
+  // use single state, a contact object that has all the fields
+  //default type: personal
+  const [contact, setContact] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    type: 'personal',
+  });
   //use useEffect to set contactForm using data in {current} as soon as page is loaded/mounted
   useEffect(() => {
     console.log(`this is the value of current ${JSON.stringify(current)}`);
@@ -23,17 +31,8 @@ const ContactForm = () => {
         type: 'personal',
       });
     }
-  }, [contactContext, current]);
+  }, [current]);
 
-  //instead of having individual field with their own state,
-  // use single state, a contact object that has all the fields
-  //default type: personal
-  const [contact, setContact] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    type: 'personal',
-  });
   const { name, email, phone, type } = contact;
   const onSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +53,6 @@ const ContactForm = () => {
   };
 
   const clearAll = () => {
-    //stuff
     clearCurrentContact();
   };
   const onChange = (e) =>

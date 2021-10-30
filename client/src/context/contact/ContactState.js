@@ -30,8 +30,9 @@ const ContactState = (props) => {
         type: 'personal',
       },
     ],
-    //clicking edit will set this state
+    //clicking edit will set 'current'
     current: null,
+    filtered: null,
   };
   const [state, dispatch] = useReducer(contactReducer, initialState);
 
@@ -62,8 +63,14 @@ const ContactState = (props) => {
   };
 
   //filter contacts
+  const filterContacts = (searchFilter) => {
+    dispatch({ type: reducerTypes.FILTER_CONTACTS, payload: searchFilter });
+  };
 
   //clear filter
+  const clearFilter = () => {
+    dispatch({ type: reducerTypes.CLEAR_FILTER });
+  };
 
   return (
     // anything we want to access from other components, including state and actions,  goes in value
@@ -71,11 +78,14 @@ const ContactState = (props) => {
       value={{
         contacts: state.contacts,
         current: state.current,
+        filtered: state.filtered,
         addContact,
         deleteContact,
         setCurrentContact,
         clearCurrentContact,
         updateCurrentContact,
+        filterContacts,
+        clearFilter,
       }}
     >
       {props.children}
