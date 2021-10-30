@@ -30,6 +30,8 @@ const ContactState = (props) => {
         type: 'personal',
       },
     ],
+    //clicking edit will set this state
+    current: null,
   };
   const [state, dispatch] = useReducer(contactReducer, initialState);
 
@@ -45,10 +47,19 @@ const ContactState = (props) => {
   };
 
   //set current contact
+  const setCurrentContact = (contact) => {
+    dispatch({ type: reducerTypes.SET_CURRENT, payload: contact });
+  };
 
   //clear current contact
+  const clearCurrentContact = () => {
+    dispatch({ type: reducerTypes.CLEAR_CURRENT });
+  };
 
   //update current contact
+  const updateCurrentContact = (contact) => {
+    dispatch({ type: reducerTypes.UPDATE_CONTACT, payload: contact });
+  };
 
   //filter contacts
 
@@ -57,7 +68,15 @@ const ContactState = (props) => {
   return (
     // anything we want to access from other components, including state and actions,  goes in value
     <ContactContext.Provider
-      value={{ contacts: state.contacts, addContact, deleteContact }}
+      value={{
+        contacts: state.contacts,
+        current: state.current,
+        addContact,
+        deleteContact,
+        setCurrentContact,
+        clearCurrentContact,
+        updateCurrentContact,
+      }}
     >
       {props.children}
     </ContactContext.Provider>

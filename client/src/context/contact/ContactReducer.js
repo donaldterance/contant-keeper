@@ -13,7 +13,17 @@ const ContactReducer = (state, action) => {
           (contact) => contact.id !== action.payload
         ),
       };
-
+    case reducerTypes.SET_CURRENT:
+      return { ...state, current: action.payload };
+    case reducerTypes.CLEAR_CURRENT:
+      return { ...state, current: null };
+    case reducerTypes.UPDATE_CONTACT:
+      return {
+        ...state,
+        contacts: state.contacts.map((contact) =>
+          contact.id === action.payload.id ? action.payload : contact
+        ),
+      };
     default:
       return state;
   }

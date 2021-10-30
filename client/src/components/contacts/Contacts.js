@@ -6,15 +6,9 @@ const Contacts = () => {
   const contactContext = useContext(ContactContext);
   const { contacts } = contactContext;
 
-  return (
-    <Fragment>
-      {contacts.map((contact) => (
-        <Fragment>
-          <ContactItem key={contact.id} contact={contact}></ContactItem>
-        </Fragment>
-      ))}
-    </Fragment>
-  );
+  return contacts.map((contact) => (
+    <ContactItem key={contact.id} contact={contact}></ContactItem>
+  ));
 };
 
 export default Contacts;
