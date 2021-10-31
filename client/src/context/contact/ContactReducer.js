@@ -5,7 +5,11 @@ const ContactReducer = (state, action) => {
     case reducerTypes.ADD_CONTACT:
       //backend not connected yet, when conncted we would display response
       // so set contacts directly from payload
-      return { ...state, contacts: [...state.contacts, action.payload] };
+      return {
+        ...state,
+        contacts: [...state.contacts, action.payload],
+        filtered: null,
+      };
     case reducerTypes.DELETE_CONTACT:
       return {
         ...state,
@@ -31,13 +35,21 @@ const ContactReducer = (state, action) => {
     case reducerTypes.FILTER_CONTACTS:
       return {
         ...state,
-        filtered: state.contacts.filter(({ name, email }) => {
+        filtered: state.contacts.filter((contact) => {
+          const { name, email } = contact;
+          let show = false;
           const testString = `${name}${email}`.toLowerCase();
+          if (testString.includes(action.payload.toLowerCase())) {
+            show = true;
+          } else {
+            show = false;
+          }
 
-          return testString.includes(action.payload.toLowerCase());
+          return show;
         }),
       };
     case reducerTypes.CLEAR_FILTER:
+      console.log(`filter cleared!`);
       return {
         ...state,
         filtered: null,

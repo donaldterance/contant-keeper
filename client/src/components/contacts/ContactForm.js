@@ -33,7 +33,7 @@ const ContactForm = () => {
     }
   }, [current]);
 
-  const { name, email, phone, type } = contact;
+  const { name, email, phone, type, show } = contact;
   const onSubmit = (e) => {
     e.preventDefault();
     if (!!!current) {
@@ -49,6 +49,7 @@ const ContactForm = () => {
       email: '',
       phone: '',
       type: 'personal',
+      show: true,
     });
   };
 
