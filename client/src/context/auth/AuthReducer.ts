@@ -1,7 +1,9 @@
 import reducerTypes from '../types';
-export default AuthReducer = (state, action) => {
+const AuthReducer = (state: any, action: any) => {
   switch (action.type) {
     default:
       return state;
   }
 };
+
+export default AuthReducer;

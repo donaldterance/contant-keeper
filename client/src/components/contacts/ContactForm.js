@@ -2,13 +2,8 @@ import React, { Fragment, useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
-  const {
-    addContact,
-    current,
-    setCurrentContact,
-    clearCurrentContact,
-    updateCurrentContact,
-  } = contactContext;
+  const { addContact, current, clearCurrentContact, updateCurrentContact } =
+    contactContext;
   //instead of having individual field with their own state,
   // use single state, a contact object that has all the fields
   //default type: personal
@@ -33,7 +28,7 @@ const ContactForm = () => {
     }
   }, [current]);
 
-  const { name, email, phone, type, show } = contact;
+  const { name, email, phone, type } = contact;
   const onSubmit = (e) => {
     e.preventDefault();
     if (!!!current) {
@@ -49,7 +44,6 @@ const ContactForm = () => {
       email: '',
       phone: '',
       type: 'personal',
-      show: true,
     });
   };
 

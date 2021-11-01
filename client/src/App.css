@@ -73,7 +73,9 @@ img {
 .text-primary {
   color: var(--primary-color);
 }
-
+.text-underline {
+  text-decoration: underline;
+}
 .text-dark {
   color: var(--dark-color);
 }
@@ -335,6 +337,7 @@ button {
   margin: 2rem auto;
   overflow: hidden;
   padding: 0 2rem;
+  background-color: aliceblue;
 }
 
 .form-container h1,
@@ -387,17 +390,22 @@ table th {
 /* Animation (Add After) */
 .item-enter {
   opacity: 0;
+  /* transform: scale(0.9); */
+}
+.item-appear {
+  opacity: 1;
+  transform: opacity 500ms ease-in;
 }
 .item-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 .item-exit {
   opacity: 1;
 }
 .item-exit-active {
   opacity: 0;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 
 /* Mobile Styles */
