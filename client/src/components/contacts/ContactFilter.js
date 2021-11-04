@@ -2,15 +2,14 @@ import React, { useContext, useRef, useEffect } from 'react';
 import contactContext from '../../context/contact/ContactContext';
 const ContactFilter = () => {
   const context = useContext(contactContext);
-  const { filterContacts, clearFilter, filtered, contacts } = context;
+  const { filterContacts, clearFilter, filtered } = context;
   const text = useRef('');
 
   useEffect(() => {
     if (filtered === null || filtered.length === 0) {
       text.current.value = '';
-      clearFilter();
-    }
-  }, [contacts]);
+    } // eslint-disable-next-line
+  }, []);
 
   const onChange = (e) => {
     if (text.current.value !== '') {

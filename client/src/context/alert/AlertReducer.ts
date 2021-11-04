@@ -1,4 +1,3 @@
-import * as React from 'react';
 import reducerTypes from '../types';
 const Alertreducer = (state: any, action: any) => {
   switch (action.type) {

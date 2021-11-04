@@ -1,22 +1,47 @@
 import * as React from 'react';
 import { useState, FormEvent, ChangeEvent } from 'react';
+import AlertContext from '../../context/alert/AlertContext';
+import AuthContext from '../../context/auth/AuthContext';
 
-const Login = () => {
+const Login = (props: any) => {
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
   const { email, password } = user;
+  const { setAlert } = React.useContext(AlertContext);
+  const { loginUser, error, clearErrors, isAuthenticated } =
+    React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'Invalid credentials') {
+      console.log(`error is this: ${error}`);
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.currentTarget.name]: e.currentTarget.value });
   };
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(`Login Submit`);
-    setUser({
-      email: '',
-      password: '',
-    });
+    if (email === '' || password === '') {
+      setAlert('Please enter credentials', 'danger');
+    } else {
+      console.log(`Login Submit`);
+      loginUser({ email, password });
+    }
+
+    // setUser({
+    //   email: '',
+    //   password: '',
+    // });
   };
   return (
     <div className='form-container'>
@@ -31,6 +56,7 @@ const Login = () => {
             name='email'
             id='email'
             value={email}
+            required
             onChange={onChange}
           />
         </div>
@@ -40,6 +66,7 @@ const Login = () => {
             type='password'
             name='password'
             id='password'
+            required
             value={password}
             onChange={onChange}
           />

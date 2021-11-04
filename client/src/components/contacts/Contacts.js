@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 import ContactItem from './ContactItem';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -19,7 +19,7 @@ const Contacts = () => {
           return (
             <CSSTransition
               nodeRef={itemRef}
-              key={contact.id}
+              key={contact._id}
               classNames='item'
               timeout={400}
             >

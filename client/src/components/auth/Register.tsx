@@ -1,17 +1,37 @@
 import * as React from 'react';
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import AlertContext from '../../context/alert/AlertContext';
+import AuthContext from '../../context/auth/AuthContext';
 
-const Register = () => {
+const Register = (props: any) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
+  const authData = React.useContext(AuthContext);
+  const { registerUser, error, clearErrors, isAuthenticated } = authData;
   const { name, email, password, password2 } = user;
   const alertContext = React.useContext(AlertContext);
   const { setAlert } = alertContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'User already exists') {
+      setAlert(error, 'danger');
+      clearErrors();
+      setUser({
+        name: '',
+        email: '',
+        password: '',
+        password2: '',
+      });
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.currentTarget.name]: e.currentTarget.value });
@@ -25,14 +45,8 @@ const Register = () => {
       setAlert('Passwords must match', 'danger');
     } else {
       console.log(`Register Submit`);
+      registerUser({ name, email, password });
     }
-
-    // setUser({
-    //   name: '',
-    //   email: '',
-    //   password: '',
-    //   password2: '',
-    // });
   };
   return (
     <div className='form-container'>
