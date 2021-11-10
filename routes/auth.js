@@ -2,13 +2,16 @@
 //authentication
 
 import express from 'express';
-import config from 'config';
+//import config from 'config';
 import bcrypt from 'bcryptjs';
 import { check, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import authMid from '../middleware/auth.js';
 const router = express.Router();
+import dotenv from 'dotenv';
+dotenv.config();
+const jwtSecret = process.env.JWTSECRET;
 
 // @route  GET api/auth
 // @desc   Get logged in user
@@ -50,15 +53,10 @@ router.post(
 
       const payload = { user: { id: user.id } };
       //sign token
-      jwt.sign(
-        payload,
-        config.get('jwtSecret'),
-        { expiresIn: 36000 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      jwt.sign(payload, jwtSecret, { expiresIn: 36000 }, (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      });
     } catch (e) {
       console.error(e.message);
       return res.status(500).send({ msg: 'Server Error' });

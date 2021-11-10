@@ -1,11 +1,14 @@
 //register route
 import express from 'express';
-import config from 'config';
+//import config from 'config';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/userModel.js';
 const userRouter = express.Router();
 import * as val from '../validator.js';
+import dotenv from 'dotenv';
+dotenv.config();
+const jwtSecret = process.env.JWTSECRET;
 //use express validator to limit incoming data and validate required propeties are listed
 
 // @route  POST api/users
@@ -29,15 +32,10 @@ userRouter.post('/', val.validationRules('users'), async (req, res) => {
     //object fro jwt
     const payload = { user: { id: user.id } };
     //sign token
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'),
-      { expiresIn: 36000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
+    jwt.sign(payload, jwtSecret, { expiresIn: 36000 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
     //return res.send(`User Save`);
   } catch (e) {
     console.error(e.message);

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import config from 'config';
+//import config from 'config';
+
 //only pertains to protected routes
 const func = (req, res, next) => {
   //get token from header
@@ -12,7 +13,7 @@ const func = (req, res, next) => {
     //we have token in header, we need to decode it
     //the payload(user id) is apart of jwt and will be put into decoded
     //take out user.id
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    const decoded = jwt.verify(token, process.env.JWTSECRET);
     req.user = decoded.user;
     next();
   } catch (e) {

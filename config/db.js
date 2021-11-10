@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
-import config from 'config';
-const db = config.get('mongoURI');
+//import config from 'config';
+import dotenv from 'dotenv';
+dotenv.config();
+const db = process.env.DATABASE_URL;
 
 const connectDB = async () => {
   try {
