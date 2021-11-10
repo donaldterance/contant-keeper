@@ -15,14 +15,12 @@ const router = express.Router();
 // @access Private
 router.get('*', authMid);
 router.get('/', async (req, res) => {
-  // res.send({ msg: 'Get logged in user' });
-  // console.log(`made it to auth`);
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json({ user });
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -58,13 +56,12 @@ router.post(
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
-          // console.log(`this is the token: ${JSON.stringify({ token })}`);
           res.json({ token });
         }
       );
     } catch (e) {
       console.error(e.message);
-      return res.status(500).send(`Server Error`);
+      return res.status(500).send({ msg: 'Server Error' });
     }
   }
 );

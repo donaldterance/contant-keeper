@@ -15,7 +15,6 @@ const ContactForm = () => {
   });
   //use useEffect to set contactForm using data in {current} as soon as page is loaded/mounted
   useEffect(() => {
-    console.log(`this is the value of current ${JSON.stringify(current)}`);
     if (current) {
       setContact(current);
     } else {
@@ -32,10 +31,8 @@ const ContactForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!!!current) {
-      console.log(`ADding contact`);
       addContact(contact);
     } else {
-      console.log(`updating contact`);
       updateCurrentContact(contact);
       clearCurrentContact();
     }

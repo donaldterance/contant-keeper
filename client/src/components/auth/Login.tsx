@@ -18,7 +18,6 @@ const Login = (props: any) => {
       props.history.push('/');
     }
     if (error === 'Invalid credentials') {
-      console.log(`error is this: ${error}`);
       setAlert(error, 'danger');
       clearErrors();
     }
@@ -34,7 +33,6 @@ const Login = (props: any) => {
     if (email === '' || password === '') {
       setAlert('Please enter credentials', 'danger');
     } else {
-      console.log(`Login Submit`);
       loginUser({ email, password });
     }
 

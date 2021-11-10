@@ -6,9 +6,10 @@ export type Contact = {
   type?: string;
 };
 export type ContactState = {
-  contacts: Contact[];
-  filtered: Contact[];
-  current: Contact;
+  contacts: Contact[] | null;
+  filtered: Contact[] | null;
+  current: Contact | null;
+  loading?: boolean;
 
   error?: string | null;
 };

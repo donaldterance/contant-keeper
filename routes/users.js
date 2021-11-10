@@ -22,12 +22,9 @@ userRouter.post('/', val.validationRules('users'), async (req, res) => {
       return res.status(400).json({ msg: 'User already exists' });
     }
     user = new UserModel({ name, email, password });
-    console.log(`this is user model: ${JSON.stringify(user)}`);
 
     const salt = await bcrypt.genSalt(10);
-    console.log(`this is salt :${salt}`);
     user.password = await bcrypt.hash(password, salt);
-    console.log(`this is user password :${user.password}`);
     await user.save();
     //object fro jwt
     const payload = { user: { id: user.id } };
@@ -38,19 +35,14 @@ userRouter.post('/', val.validationRules('users'), async (req, res) => {
       { expiresIn: 36000 },
       (err, token) => {
         if (err) throw err;
-        console.log(`this is the token: ${JSON.stringify({ token })}`);
         res.json({ token });
       }
     );
     //return res.send(`User Save`);
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Server Error');
+    return res.status(500).send({ msg: 'Server Error' });
   }
-
-  //res.send(req.body);
-
-  console.log(`made it to users`);
 });
 
 //module.exports = router;

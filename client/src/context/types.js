@@ -1,6 +1,8 @@
 //variables used decide what happens in reducer
 const types = {
   ADD_CONTACT: 'ADD_CONTACT',
+  GET_CONTACTS: 'GET_CONTACTS',
+  CLEAR_CONTACTS: 'CLEAR_CONTACTS',
   DELETE_CONTACT: 'DELETE_CONTACT',
   CONTACT_ERROR: 'CONTACT_ERROR',
   SET_CURRENT: 'SET_CURRENT',

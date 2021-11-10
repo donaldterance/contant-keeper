@@ -13,7 +13,6 @@ const ContactFilter = () => {
 
   const onChange = (e) => {
     if (text.current.value !== '') {
-      console.log(`this is the ref value =${text.current.value}`);
       filterContacts(e.target.value);
     } else {
       clearFilter();

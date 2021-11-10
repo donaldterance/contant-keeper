@@ -7,7 +7,6 @@ import AuthContext from '../../context/auth/AuthContext';
 const Home = () => {
   const authData = React.useContext(AuthContext);
   React.useEffect(() => {
-    console.log('called loadUser from home.js');
     authData.loadUser();
     // eslint-disable-next-line
   }, []);

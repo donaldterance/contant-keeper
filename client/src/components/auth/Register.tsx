@@ -39,12 +39,10 @@ const Register = (props: any) => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (name === '' || email === '' || password === '') {
-      console.log(`fire alert`);
       setAlert('Please enter all fields', 'danger');
     } else if (password !== password2) {
       setAlert('Passwords must match', 'danger');
     } else {
-      console.log(`Register Submit`);
       registerUser({ name, email, password });
     }
   };

@@ -32,7 +32,6 @@ const AuthReducer = (state: Auth, action: Action) => {
 
     case reducerTypes.USER_LOADED:
       //payload:user{}
-      console.log(`user object ${JSON.stringify(action.payload.user)}`);
       return (state = {
         ...state,
         isAuthenticated: true,
@@ -40,15 +39,6 @@ const AuthReducer = (state: Auth, action: Action) => {
         user: action.payload.user,
       });
 
-    // case reducerTypes.LOGIN_SUCCESS:
-    //   console.log(`login data: ${JSON.stringify(action.payload)}`);
-    //   localStorage.setItem('token', action.payload.token);
-    //   return (state = {
-    //     ...state,
-    //     ...action.payload,
-    //     isAuthenticated: true,
-    //     loading: false,
-    //   });
     case reducerTypes.LOGOUT:
       localStorage.removeItem('token');
       return (state = {

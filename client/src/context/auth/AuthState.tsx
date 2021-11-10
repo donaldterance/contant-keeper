@@ -29,7 +29,6 @@ export const AuthState = (props: any) => {
       const res = await axios.get(url);
       dispatch({ type: reducerTypes.USER_LOADED, payload: res.data });
     } catch (e) {
-      console.log(`auth error:${e}`);
       dispatch({ type: reducerTypes.AUTH_ERROR });
     }
   };
@@ -43,7 +42,7 @@ export const AuthState = (props: any) => {
       dispatch({ type: reducerTypes.REGITER_SUCCESS, payload: res.data });
       loadUser();
     } catch (e: any) {
-      console.error(`Error occured: ${e}`);
+      console.error(`Error occured: ${e.response.data.msg}`);
       dispatch({
         type: reducerTypes.REGISTER_FAIL,
         payload: e.response.data.msg,
@@ -60,7 +59,6 @@ export const AuthState = (props: any) => {
       dispatch({ type: reducerTypes.LOGIN_SUCCESS, payload: res.data });
       loadUser();
     } catch (e: any) {
-      console.error(`Error occured!: ${e}`);
       dispatch({
         type: reducerTypes.LOGIN_FAIL,
         payload: e.response.data.msg,

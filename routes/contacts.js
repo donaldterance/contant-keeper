@@ -18,15 +18,17 @@ router.get('/', async (req, res) => {
   // console.log(`made it to contact`);
   try {
     const user = await UserModel.findById(req.user.id).select('-password');
-    const contacts = await ContactModel.find({ user: req.user.id });
-    console.log(`this is contacts ${JSON.stringify(contacts)}`);
+    const contacts = await ContactModel.find({ user: req.user.id }).sort({
+      name: 1,
+      _id: 1,
+    });
     res.json({
       count: contacts.length,
       contacts,
     });
   } catch (e) {
     console.error(e.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 
@@ -38,8 +40,6 @@ router.post(
   val.validationRules('contacts'),
 
   async (req, res) => {
-    // res.send({ msg: 'add contact!!!' });
-    // console.log(`made it to contact`);
     try {
       const { name, email, phone, type } = req.body;
       let newContact = new ContactModel({
@@ -50,11 +50,15 @@ router.post(
         user: req.user.id,
       });
       const contact = await newContact.save();
+      const contacts = await ContactModel.find({ user: req.user.id }).sort({
+        name: 1,
+        _id: 1,
+      });
       console.log(`this is saved contact data: ${newContact}`);
-      res.json(contact);
+      res.json({ contacts });
     } catch (e) {
       console.error(e.message);
-      res.status(500).send(`Server Error`);
+      res.status(500).send({ msg: 'Server Error' });
     }
   }
 );
@@ -85,7 +89,7 @@ router.put('/:id', async (req, res) => {
     res.json(contact);
   } catch (e) {
     console.error(e);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -93,8 +97,6 @@ router.put('/:id', async (req, res) => {
 // @desc    delete contact
 // @access Private
 router.delete('/:id', async (req, res) => {
-  // res.send({ msg: 'Delete Contact' });
-  // console.log(`made it to contact`);
   try {
     let contact = await ContactModel.findById(req.params.id);
     if (!contact) return res.status(404).json({ msg: 'Contact not found' });
@@ -106,7 +108,7 @@ router.delete('/:id', async (req, res) => {
     res.json({ msg: 'Contact removed' });
   } catch (e) {
     console.error(e);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 

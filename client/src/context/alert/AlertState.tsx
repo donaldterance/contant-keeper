@@ -14,7 +14,6 @@ const AlertState = (props: any) => {
   const setAlert = (msg: string, type: any, timeout = 3000) => {
     const id = uuid.v4();
     dispatch({ type: reducerTypes.SET_ALERT, payload: { msg, type, id } });
-    console.log(`made it to set alert!`);
     setTimeout(
       () => dispatch({ type: reducerTypes.REMOVE_ALERT, payload: id }),
       timeout

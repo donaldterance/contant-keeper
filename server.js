@@ -19,11 +19,6 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/contact', contact);
 
-app.get('/', (req, res) => {
-  res.send({ msg: `Hello world bitch from contact keeper` });
-  console.log('after res send');
-});
-
 app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);
 });
