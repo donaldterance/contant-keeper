@@ -8,7 +8,8 @@ const Navbar = ({ title, icon }) => {
   const authData = React.useContext(AuthContext);
   const { clearContacts } = React.useContext(contactContext);
   const { isAuthenticated, user, logoutUser } = authData;
-  const onLogout = () => {
+  const onLogout = (e) => {
+    e.preventDefault();
     logoutUser();
     clearContacts();
   };
