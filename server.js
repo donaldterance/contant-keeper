@@ -6,6 +6,9 @@ import contact from './routes/contacts.js';
 import connectdb from './config/db.js';
 import path from 'path';
 const app = express();
+import { fileURLToPath } from 'url';
+let __filename = fileURLToPath(import.meta.url);
+let __dirname = path.dirname(__filename);
 
 //Connect Database
 connectdb();
